@@ -27,4 +27,3 @@ function App() {
 export default App
 
 
-// https://www.color-hex.com/color-palette/80053  colors https://uicolors.app/create
