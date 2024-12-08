@@ -1,36 +1,15 @@
 import React from 'react'
-import { Box, Avatar, Flex, Link, Tooltip, Button } from "@chakra-ui/react";
+import { Box, Flex, Link, Tooltip, Button } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom"
-import { InstagramLogoR, InstagramLogoMini, HomeIcon, SerchIcon, PlusIcon,Heart } from '../../assets/constants'
+import { InstagramLogoR, InstagramLogoMini} from '../../assets/constants'
 import { BiLogOut } from 'react-icons/bi';
-
+import useLogout from '../../hooks/useLogout';
+import SidebarItems from './SidebarItems';
 
 
 export const Sidebar = () => {
-	const sidebarItems = [
-		{
-			icon: <HomeIcon />,
-			text: "Home",
-			link: "/"
-		},
-		{
-			icon: <SerchIcon />,
-			text: "Search",
-		},
-		{
-			icon: <Heart />,
-			text: "Notifications",
-		},
-		{
-			icon: <PlusIcon />,
-			text: "Create",
-		},
-		{
-			icon: <Avatar size={"sm"} name="Ash Williams" src='/ash.webp' />,
-			text: "Profile",
-			link: "/ashyslashy"
-		},
-	]
+
+	const  {handleLogout, isLogginOut,error} = useLogout()
 	return (
 		<Box height={"100vh"}
 			borderRight={"1px solid"}
@@ -58,34 +37,7 @@ export const Sidebar = () => {
 					<InstagramLogoMini />
 				</Link>
 				<Flex direction={"column"} gap={5} cursor={"pointer"}>
-					{sidebarItems.map((item, index) => (
-						<Tooltip
-							key={index}
-							hasArrow
-							label={item.text}
-							placement='right'
-							openDelay={500}
-							display={{ base: "block", md: 'block' }}
-						>
-							<Link
-								display={"flex"}
-								to={item.link || null}
-								as={RouterLink}
-								alignItems={"center"}
-								gap={4}
-								_hover={{ bg: "whiteAlpha.400" }}
-								borderRadius={6}
-								p={2}
-								w={{ base: 10, md: "full" }}
-								justifyContent={{ base: "center", md: "flex-start" }}
-							>
-								{item.icon}
-								<Box display={{ base: "none", md: "block" }}>
-									{item.text}
-								</Box>
-							</Link>
-						</Tooltip>
-					))}
+				<SidebarItems/>
 				</Flex>
 				<Tooltip
 					hasArrow
@@ -95,10 +47,8 @@ export const Sidebar = () => {
 					openDelay={500}
 					display={{ base: "block", md: 'block' }}
 				>
-					<Link
-						display={"flex"}
-						to={"/auth"}
-						as={RouterLink}
+					<Flex
+					    onClick={handleLogout}
 						alignItems={"center"}
 						gap={4}
 						_hover={{ bg: "whiteAlpha.400" }}
@@ -110,7 +60,7 @@ export const Sidebar = () => {
 					>
 						<BiLogOut size={30}/>
 						<Box display={{ base: "none", md: "block" }}>Logout</Box>
-					</Link>
+					</Flex>
 				</Tooltip>
 			</Flex>
 
